@@ -43,3 +43,6 @@ next-env.d.ts
 
 # design sources for favicon / og-image (already copied to src/app)
 /tmp
+
+.vercel
+.env*

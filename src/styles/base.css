@@ -1,0 +1,63 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--c-bg);
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-white);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-white);
+  padding: clamp(10px, 2vw, 24px);
+  font-family: var(--font-text);
+}
+
+.card {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.slogan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 20px);
+  padding-top: clamp(2px, 0.8vh, 8px);
+  font-size: clamp(11px, min(1.2vw, 1.8vh), 14px);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  text-align: center;
+}
+.slogan::before,
+.slogan::after {
+  content: "";
+  flex: 0 1 clamp(24px, 8vw, 120px);
+  height: 1px;
+  background: var(--c-teal);
+}

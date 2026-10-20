@@ -29,7 +29,6 @@
   padding: clamp(16px, 2.2vw, 24px);
   min-height: 130px;
   border: 1px solid var(--c-line);
-  backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

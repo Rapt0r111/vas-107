@@ -2,12 +2,9 @@
 
 import { useEffect } from "react";
 
-const clamp = (v: number) => Math.max(-1, Math.min(1, v));
-
 /**
- * Лёгкий параллакс: положение курсора (--px/--py) двигает эмблему и «107»,
- * наклон телефона (--tx/--ty) двигает волны. Пишет в <html>, без перерисовки React.
- * Наклон работает там, где браузер отдаёт его без запроса разрешения (Android).
+ * Лёгкий параллакс: положение курсора (--px/--py) двигает эмблему и «107».
+ * Пишет в <html>, без перерисовки React. Только для мыши: на телефоне нет ни эффекта, ни подписки.
  */
 export function PointerParallax() {
   useEffect(() => {
@@ -28,17 +25,12 @@ export function PointerParallax() {
 
     const onMove = (e: PointerEvent) =>
       set({ "--px": (e.clientX / innerWidth - 0.5).toFixed(3), "--py": (e.clientY / innerHeight - 0.5).toFixed(3) });
-    const onTilt = (e: DeviceOrientationEvent) => {
-      if (e.gamma == null || e.beta == null) return;
-      set({ "--tx": clamp(e.gamma / 30).toFixed(3), "--ty": clamp((e.beta - 45) / 30).toFixed(3) });
-    };
 
-    if (matchMedia("(hover: hover) and (pointer: fine)").matches) addEventListener("pointermove", onMove, { passive: true });
-    else addEventListener("deviceorientation", onTilt, { passive: true });
+    if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    addEventListener("pointermove", onMove, { passive: true });
 
     return () => {
       removeEventListener("pointermove", onMove);
-      removeEventListener("deviceorientation", onTilt);
       cancelAnimationFrame(raf);
     };
   }, []);

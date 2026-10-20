@@ -8,8 +8,8 @@
   padding: clamp(22px, 5vw, 56px);
   display: grid;
   gap: clamp(16px, 3vw, 28px) clamp(20px, 3.5vw, 40px);
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "chip" "mark" "num" "title";
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "chip chip" "num mark" "title title";
   align-items: center;
   justify-items: start;
 }
@@ -27,6 +27,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+.hero__waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
 .hero__wave {
   position: absolute;
   left: 0;
@@ -37,6 +43,8 @@
   object-fit: cover;
   opacity: 0.32;
   pointer-events: none;
+  translate: calc(var(--tx, 0) * 18px) calc(var(--ty, 0) * 12px);
+  transition: translate 0.3s ease-out;
   will-change: transform;
   animation: drift 60s ease-in-out infinite alternate;
 }
@@ -77,9 +85,16 @@
   flex-direction: column;
   gap: 14px;
 }
+.hero__years-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.4vw, 14px);
+}
 .hero__eyebrow {
-  font-size: clamp(18px, 2vw, 22px);
+  width: min-content; /* две строки: «со дня» / «образования» */
+  font-size: clamp(14px, calc(var(--nlet, clamp(34px, 5vw, 64px)) * 0.45), 22px);
   font-weight: 500;
+  line-height: 1.15;
   color: var(--c-ochre);
 }
 .hero__h1 {
@@ -100,7 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-self: start;
+  justify-self: end;
 }
 .hero__mark img {
   position: relative;
@@ -122,13 +137,13 @@
   animation: ring 5.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
 }
 
-@media (min-width: 520px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "chip chip" "num mark" "title title";
+/* Узкий телефон: «107» и герб в одну строку */
+@media (max-width: 519px) {
+  .hero__num {
+    --n107: clamp(88px, 27vw, 116px);
   }
   .hero__mark {
-    justify-self: end;
+    --m: clamp(84px, 24vw, 104px);
   }
 }
 @media (min-width: 960px) {
@@ -200,7 +215,6 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  animation: blink 1s steps(1) infinite;
 }
 .countdown__sep i {
   display: block;
@@ -219,4 +233,44 @@
   transform-origin: left;
   transform: scaleX(var(--f, 0));
   transition: transform 0.9s linear;
+}
+
+.countdown__value--tick {
+  transform-origin: 50% 100%;
+  animation: tick 0.18s ease-out;
+}
+
+/* Вместо отсчёта, когда торжество идёт или завершено */
+.announce {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(10px, 1.8vh, 16px) clamp(14px, 1.6vw, 22px);
+  border-radius: clamp(14px, 1.6vw, 20px);
+  background: rgba(0, 38, 36, 0.55);
+  border: 1px solid rgba(0, 158, 151, 0.6);
+}
+.announce__text {
+  font-size: clamp(16px, calc(var(--cn, clamp(26px, 3.6vw, 52px)) * 0.55), 28px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--c-ochre);
+  text-wrap: balance;
+}
+.announce__dot {
+  position: relative;
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-ochre);
+}
+.announce__dot::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 185, 106, 0.7);
+  will-change: transform, opacity;
+  animation: pulse 2.4s ease-out infinite;
 }

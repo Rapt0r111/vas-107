@@ -1,0 +1,45 @@
+/* Закреплённые кнопки: только телефон */
+.dock {
+  display: none;
+}
+@media (max-width: 699px) {
+  .dock {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    gap: 10px;
+    padding: 24px clamp(10px, 2vw, 24px) calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, var(--c-bg) 62%, transparent);
+    pointer-events: none;
+  }
+  .dock__btn {
+    flex: 1;
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    border: 1.5px solid var(--c-teal);
+    border-radius: 999px;
+    background: var(--c-card);
+    color: var(--c-ochre);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .dock__btn--primary {
+    background: var(--c-ochre);
+    border-color: var(--c-ochre);
+    color: var(--c-main);
+  }
+  .dock__btn:active {
+    transform: scale(0.97);
+  }
+  .page {
+    padding-bottom: calc(clamp(10px, 2vw, 24px) + 76px + env(safe-area-inset-bottom));
+  }
+}

@@ -1,64 +1,52 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { getCountdown } from "@/lib/countdown";
 import { cssVars } from "@/lib/css";
-
-/** Общее хранилище «сейчас»: один интервал на всех подписчиков, снимок стабилен между тиками. */
-let now = 0;
-const listeners = new Set<() => void>();
-let timer: ReturnType<typeof setInterval> | undefined;
-
-function subscribe(listener: () => void) {
-  if (listeners.size === 0) {
-    now = Date.now();
-    timer = setInterval(() => {
-      now = Date.now();
-      listeners.forEach((l) => l());
-    }, 1000);
-  }
-  listeners.add(listener);
-  return () => {
-    listeners.delete(listener);
-    if (listeners.size === 0) clearInterval(timer);
-  };
-}
-
-const getSnapshot = () => now;
-/** На сервере и при гидратации «сейчас» неизвестно: показываем скрытую заготовку без сдвига вёрстки. */
-const getServerSnapshot = () => 0;
+import { dayAndMonth } from "@/lib/format";
+import { getPhase } from "@/lib/phase";
+import { useNow } from "@/lib/useNow";
 
 type Props = { startsAt: string };
 
 export function Countdown({ startsAt }: Props) {
-  const current = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const current = useNow();
   const pending = current === 0;
+  const phase = pending ? "before" : getPhase(current);
+
+  if (phase !== "before") return <Announcement phase={phase} />;
+
   const c = getCountdown(Date.parse(startsAt), pending ? Date.parse(startsAt) : current);
-  const started = !pending && c.totalSeconds === 0;
 
   return (
-    <div
-      className="countdown"
-      role="timer"
-      aria-label="Время до начала торжества"
-      data-pending={pending || undefined}
-    >
-      {started ? (
-        <span className="countdown__caption font-display">Торжественные мероприятия начались</span>
-      ) : (
-        <>
-          <span className="countdown__caption font-display">До начала торжества</span>
-          <div className="countdown__row">
-            <Unit value={pending ? "17" : c.days} label="дней" />
-            <Separator />
-            <Unit value={pending ? "00" : c.hours} label="часов" />
-            <Separator />
-            <Unit value={pending ? "00" : c.minutes} label="минут" />
-            <Separator />
-            <Unit value={pending ? "00" : c.seconds} label="секунд" seconds fraction={c.secondsFraction} />
-          </div>
-        </>
-      )}
+    <div className="countdown" role="timer" aria-label="Время до начала торжества" data-pending={pending || undefined}>
+      <span className="countdown__caption font-display">До начала торжества</span>
+      <div className="countdown__row">
+        <Unit value={pending ? "17" : c.days} label="дней" />
+        <Separator />
+        <Unit value={pending ? "00" : c.hours} label="часов" />
+        <Separator />
+        <Unit value={pending ? "00" : c.minutes} label="минут" />
+        <Separator />
+        <Unit value={pending ? "00" : c.seconds} label="секунд" seconds fraction={c.secondsFraction} />
+      </div>
+    </div>
+  );
+}
+
+/** Вместо отсчёта: торжество идёт или уже завершилось. */
+function Announcement({ phase }: { phase: "live" | "after" }) {
+  const live = phase === "live";
+  return (
+    <div className="countdown" role="status">
+      <span className="countdown__caption font-display">
+        {live ? `Сегодня, ${dayAndMonth()}` : "Торжественные мероприятия завершены"}
+      </span>
+      <div className="announce">
+        {live && <span className="announce__dot" aria-hidden="true" />}
+        <span className="announce__text font-display">
+          {live ? "Торжественные мероприятия идут прямо сейчас" : `Спасибо, что были с нами`}
+        </span>
+      </div>
     </div>
   );
 }
@@ -76,7 +64,10 @@ function Unit({
 }) {
   return (
     <div className={seconds ? "countdown__unit countdown__unit--seconds" : "countdown__unit"}>
-      <div className="countdown__value font-display">{value}</div>
+      {/* key пересоздаёт узел при смене секунды и заново запускает короткий «переворот» */}
+      <div key={seconds ? value : undefined} className={seconds ? "countdown__value countdown__value--tick font-display" : "countdown__value font-display"}>
+        {value}
+      </div>
       <div className="countdown__label">{label}</div>
       {seconds && <div className="countdown__bar" style={cssVars({ "--f": fraction.toFixed(3) })} />}
     </div>

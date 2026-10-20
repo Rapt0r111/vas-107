@@ -4,6 +4,8 @@ import { event } from "@/config/event";
 import { getCountdown } from "@/lib/countdown";
 import { dayAndMonth, yearAndWeekday } from "@/lib/format";
 import { yandexMapsUrl } from "@/lib/maps";
+import { getPhase } from "@/lib/phase";
+import { programStatus } from "@/lib/program";
 
 const start = Date.parse(event.startsAt);
 
@@ -42,5 +44,28 @@ describe("format", () => {
   it("дата по-русски", () => {
     expect(dayAndMonth()).toBe("6 ноября");
     expect(yearAndWeekday()).toBe("2026, пятница");
+  });
+});
+
+describe("program", () => {
+  const at = (hhmm: string) => Date.parse(`2026-11-06T${hhmm}:00+03:00`);
+  it("до начала подсвечивает первый пункт, но он ещё не идёт", () => {
+    expect(programStatus(at("08:00") - 86400000)).toEqual({ active: 0, live: false });
+  });
+  it("во время пункта он идёт, в паузе — ближайший следующий", () => {
+    expect(programStatus(at("10:00"))).toEqual({ active: 0, live: true });
+    expect(programStatus(at("10:25"))).toEqual({ active: 1, live: false });
+    expect(programStatus(at("12:00"))).toEqual({ active: 2, live: true });
+  });
+  it("после последнего пункта подсветки нет", () => {
+    expect(programStatus(at("17:00"))).toEqual({ active: -1, live: false });
+  });
+});
+
+describe("phase", () => {
+  it("до, во время и после торжества", () => {
+    expect(getPhase(start - 1)).toBe("before");
+    expect(getPhase(start)).toBe("live");
+    expect(getPhase(Date.parse(event.endsAt))).toBe("after");
   });
 });

@@ -59,6 +59,30 @@
   will-change: transform, opacity;
   animation: pulse 2.4s ease-out infinite;
 }
+.timeline__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+}
+.timeline__live {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--c-ochre);
+  color: var(--c-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.timeline__dot--done {
+  background: var(--c-teal);
+}
+.timeline__item--past .timeline__time,
+.timeline__item--past .timeline__title {
+  opacity: 0.5;
+}
 .timeline__time {
   font-family: var(--font-display);
   font-size: 16px;

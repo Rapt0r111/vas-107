@@ -6,26 +6,22 @@ import { Countdown } from "./Countdown";
 export function Hero() {
   return (
     <section className="hero rise" style={rise("0s")}>
-      <Image
-        className="hero__wave"
-        src="/brand/vas-wave-pattern.svg"
-        alt=""
-        width={12418}
-        height={5142}
-        unoptimized
-        aria-hidden="true"
-      />
+      <div className="hero__waves" aria-hidden="true">
+        <Image className="hero__wave" src="/brand/vas-wave-pattern.svg" alt="" width={12418} height={5142} unoptimized />
+      </div>
       <div className="hero__chip font-display">
         {event.foundedYear}–{new Date(event.startsAt).getUTCFullYear()}
       </div>
 
       <div className="hero__num rise" style={rise(".15s", ".9s")}>
         <div className="hero__107 font-display">{event.anniversary}</div>
-        <div className="hero__years font-display">лет</div>
+        <div className="hero__years-row">
+          <div className="hero__years font-display">лет</div>
+          <div className="hero__eyebrow">со&nbsp;дня образования</div>
+        </div>
       </div>
 
       <div className="hero__title rise" style={rise(".3s", ".9s")}>
-        <div className="hero__eyebrow">со&nbsp;дня образования</div>
         <h1 className="hero__h1 font-display">Военная академия связи</h1>
         <Countdown startsAt={event.startsAt} />
       </div>

@@ -1,22 +1,24 @@
 import localFont from "next/font/local";
 
-/** Шрифты из брендбука ВАС. Файлы — субсеты (кириллица + латиница) в woff2. */
-export const tektur = localFont({
+/** Шрифты золотого макета ВАС. Файлы — субсеты (кириллица + латиница) в woff2. */
+export const playfair = localFont({
   src: [
-    { path: "../assets/fonts/Tektur-600.woff2", weight: "600", style: "normal" },
-    { path: "../assets/fonts/Tektur-700.woff2", weight: "700", style: "normal" },
+    { path: "../assets/fonts/Playfair-600.woff2", weight: "600", style: "normal" },
+    { path: "../assets/fonts/Playfair-700.woff2", weight: "700", style: "normal" },
   ],
-  variable: "--font-tektur",
+  variable: "--font-playfair",
   display: "swap",
-  fallback: ["Bahnschrift", "Segoe UI", "system-ui", "sans-serif"],
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });
 
-export const golos = localFont({
+export const cormorant = localFont({
   src: [
-    { path: "../assets/fonts/GolosText-500.woff2", weight: "500", style: "normal" },
-    { path: "../assets/fonts/GolosText-600.woff2", weight: "600", style: "normal" },
+    { path: "../assets/fonts/Cormorant-500.woff2", weight: "500", style: "normal" },
+    { path: "../assets/fonts/Cormorant-600.woff2", weight: "600", style: "normal" },
+    { path: "../assets/fonts/Cormorant-700.woff2", weight: "700", style: "normal" },
+    { path: "../assets/fonts/Cormorant-600-italic.woff2", weight: "600", style: "italic" },
   ],
-  variable: "--font-golos",
+  variable: "--font-cormorant",
   display: "swap",
-  fallback: ["Segoe UI", "system-ui", "sans-serif"],
+  fallback: ["Georgia", "Times New Roman", "serif"],
 });

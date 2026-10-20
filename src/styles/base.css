@@ -12,7 +12,7 @@ html {
 body {
   margin: 0;
   background: var(--c-bg);
-  color: var(--c-white);
+  color: var(--c-cream);
 }
 
 .nowrap {
@@ -23,13 +23,30 @@ body {
   font-family: var(--font-display);
 }
 
+/* Золотой градиент по тексту */
+.gold-text {
+  background: var(--c-gold-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Фон как на макете: тёмный центр, светлый изумруд по нижним углам */
 .page {
+  position: relative;
+  overflow-x: clip;
   width: 100%;
   min-height: 100vh;
-  background: var(--c-bg);
-  color: var(--c-white);
+  color: var(--c-cream);
   padding: clamp(10px, 2vw, 24px);
   font-family: var(--font-text);
+  background:
+    radial-gradient(75% 55% at 50% 38%, #00352f 0%, rgb(0 53 47 / 0) 100%),
+    radial-gradient(75% 60% at 0% 100%, #00a077 0%, rgb(0 160 119 / 0) 72%),
+    radial-gradient(75% 60% at 100% 100%, #00936c 0%, rgb(0 147 108 / 0) 72%),
+    radial-gradient(55% 50% at 0% 45%, #00765d 0%, rgb(0 118 93 / 0) 72%),
+    linear-gradient(180deg, #004a40 0%, #003a34 45%, #004d41 100%);
 }
 
 .card {
@@ -51,7 +68,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--c-gold);
   text-align: center;
 }
 .slogan::before,
@@ -59,5 +76,5 @@ body {
   content: "";
   flex: 0 1 clamp(24px, 8vw, 120px);
   height: 1px;
-  background: var(--c-teal);
+  background: var(--c-line);
 }

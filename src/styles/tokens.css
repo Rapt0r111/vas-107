@@ -1,14 +1,19 @@
-/* Палитра и шрифты — брендбук ВАС */
+/* Палитра и шрифты — золотой макет ВАС */
 :root {
-  --c-bg: #002624;
-  --c-main: #003735;
-  --c-card: #004744;
-  --c-teal: #009e97;
-  --c-ochre: #ffb96a;
-  --c-white: #ffffff;
+  --c-bg: #003a34;
+  --c-gold: #e3c079;
+  --c-gold-fill: linear-gradient(135deg, #f1dba0 0%, #d4a94f 55%, #b98c3a 100%);
+  --c-gold-text: linear-gradient(100deg, #b58a3a 0%, #ecd59b 30%, #c9a050 55%, #f3e0aa 78%, #b58a3a 100%);
+  --c-ink: #00302b;
+  --c-card: rgba(0, 44, 39, 0.55);
+  --c-glass: rgba(0, 40, 36, 0.5);
+  --c-line: rgba(214, 172, 86, 0.55);
+  --c-cream: #f6edd6;
 
-  --font-display: var(--font-tektur), "Bahnschrift", "Segoe UI", system-ui, sans-serif;
-  --font-text: var(--font-golos), "Segoe UI", system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-text: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  /* У Cormorant маленькая x-высота: выравниваем, чтобы мелкий текст читался */
+  --xh: 0.47;
 
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   /* Сдвиг входных анимаций на время заставки */

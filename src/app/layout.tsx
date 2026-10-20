@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { event } from "@/config/event";
-import { golos, tektur } from "@/lib/fonts";
+import { cormorant, playfair } from "@/lib/fonts";
 import "./globals.css";
 
 const siteUrl =
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#002624",
+  themeColor: "#003a34",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ru" className={`${tektur.variable} ${golos.variable}`}>
+    <html lang="ru" className={`${playfair.variable} ${cormorant.variable}`}>
       <body>{children}</body>
     </html>
   );

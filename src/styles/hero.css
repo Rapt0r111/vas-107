@@ -2,51 +2,35 @@
 .hero {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
-  border-radius: clamp(22px, 3.4vw, 40px);
-  background: var(--c-main);
-  padding: clamp(22px, 5vw, 56px);
+  padding: clamp(34px, 7vh, 60px) clamp(22px, 5vw, 56px) clamp(26px, 5.5vh, 48px);
   display: grid;
   gap: clamp(16px, 3vw, 28px) clamp(20px, 3.5vw, 40px);
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "chip chip" "num mark" "title title";
+  grid-template-areas: "num mark" "title title";
   align-items: center;
   justify-items: start;
 }
 
-.hero__chip {
-  grid-area: chip;
-  position: relative;
-  z-index: 2;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  font-variant-numeric: tabular-nums;
-}
-
+/* Золотые волны сверху и снизу шапки на всю ширину экрана */
 .hero__waves {
   position: absolute;
-  inset: 0;
+  left: 50%;
+  width: 100vw;
+  translate: -50% 0;
   z-index: 0;
   pointer-events: none;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-.hero__wave {
-  position: absolute;
-  left: 0;
-  top: -12%;
-  z-index: 0;
-  width: 132%;
-  height: 124%;
-  object-fit: cover;
-  opacity: 0.32;
-  pointer-events: none;
-  translate: calc(var(--tx, 0) * 18px) calc(var(--ty, 0) * 12px);
-  transition: translate 0.3s ease-out;
-  will-change: transform;
-  animation: drift 60s ease-in-out infinite alternate;
+.hero__waves--top {
+  top: -20px;
+  height: 84px;
+  background-image: url("/brand/vas-waves-top.svg");
+}
+.hero__waves--bottom {
+  bottom: -26px;
+  height: 70px;
+  background-image: url("/brand/vas-waves-bottom.svg");
 }
 
 .hero__num {
@@ -57,22 +41,23 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  /* Цифры Playfair стоят низко в строке: поднимаем блок, чтобы визуально он был по центру с правой частью */
+  top: calc(var(--n107, clamp(116px, 22vw, 212px)) * -0.15);
   transform: translate3d(calc(var(--px, 0) * 8px), calc(var(--py, 0) * 6px), 0);
   transition: transform 0.35s ease-out;
 }
 .hero__107 {
   font-size: var(--n107, clamp(116px, 22vw, 212px));
-  font-weight: 700;
-  line-height: 0.86;
-  letter-spacing: -0.04em;
-  color: var(--c-ochre);
-  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  font-feature-settings: "onum" 1;
 }
 .hero__years {
   font-size: var(--nlet, clamp(34px, 5vw, 64px));
   font-weight: 600;
   line-height: 1;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -92,17 +77,22 @@
 }
 .hero__eyebrow {
   width: min-content; /* две строки: «со дня» / «образования» */
+  font-family: var(--font-text);
+  font-style: italic;
   font-size: clamp(14px, calc(var(--nlet, clamp(34px, 5vw, 64px)) * 0.45), 22px);
-  font-weight: 500;
+  font-size-adjust: var(--xh);
+  font-weight: 600;
   line-height: 1.15;
-  color: var(--c-ochre);
+  color: var(--c-gold);
 }
 .hero__h1 {
   margin: 0;
+  font-family: var(--font-text);
   font-size: var(--ttl, clamp(30px, 5.2vw, 64px));
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: 0.01em;
+  font-size-adjust: var(--xh);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   text-wrap: balance;
 }
@@ -124,33 +114,30 @@
   width: auto;
   transform: translate3d(calc(var(--px, 0) * -14px), calc(var(--py, 0) * -14px), 0);
   transition: transform 0.35s ease-out;
+  filter: drop-shadow(0 6px 18px rgb(0 20 16 / 0.55));
 }
-.ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: calc(var(--m) * 2.4);
-  aspect-ratio: 1;
-  border: 1.5px solid var(--c-teal);
-  border-radius: 50%;
-  will-change: transform, opacity;
-  animation: ring 5.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
-}
-
 /* Узкий телефон: «107» и герб в одну строку */
 @media (max-width: 519px) {
   .hero__num {
     --n107: clamp(88px, 27vw, 116px);
   }
   .hero__mark {
-    --m: clamp(84px, 24vw, 104px);
+    --m: clamp(104px, 33vw, 140px);
+  }
+  .countdown__unit {
+    min-width: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .countdown__label {
+    letter-spacing: 0.02em;
+    font-size: 10px;
   }
 }
 @media (min-width: 960px) {
   .hero {
     grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-rows: auto 1fr;
-    grid-template-areas: "chip chip chip" "num title mark";
+    grid-template-areas: "num title mark";
     min-height: 520px;
   }
 }
@@ -168,9 +155,9 @@
 .countdown__caption {
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--c-ochre);
+  color: var(--c-gold);
 }
 .countdown__row {
   display: flex;
@@ -179,37 +166,40 @@
 }
 .countdown__unit {
   position: relative;
-  width: clamp(56px, 6.4vw, 92px);
-  padding: clamp(8px, 1.4vh, 12px) 4px clamp(8px, 1.3vh, 11px);
+  min-width: clamp(56px, 6.4vw, 92px);
+  padding: clamp(8px, 1.4vh, 12px) 8px clamp(8px, 1.3vh, 11px);
   border-radius: clamp(14px, 1.6vw, 20px);
-  background: rgba(0, 38, 36, 0.55);
-  border: 1px solid rgba(0, 158, 151, 0.6);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
   text-align: center;
   overflow: hidden;
 }
 .countdown__unit--seconds {
-  background: var(--c-ochre);
-  border-color: var(--c-ochre);
+  background: var(--c-gold-fill);
+  border-color: var(--c-gold);
 }
 .countdown__value {
   font-size: var(--cn, clamp(26px, 3.6vw, 52px));
   font-weight: 700;
   line-height: 1;
-  color: var(--c-ochre);
-  font-variant-numeric: tabular-nums;
+  color: var(--c-gold);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 .countdown__unit--seconds .countdown__value {
-  color: var(--c-main);
+  color: var(--c-ink);
 }
 .countdown__label {
   margin-top: 4px;
-  font-size: clamp(9px, 0.8vw, 11px);
-  letter-spacing: 0.08em;
+  font-family: var(--font-text);
+  font-size: clamp(11px, 0.95vw, 13px);
+  font-size-adjust: var(--xh);
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(246 237 214 / 0.85);
 }
 .countdown__unit--seconds .countdown__label {
-  color: var(--c-main);
+  color: var(--c-ink);
 }
 .countdown__sep {
   display: flex;
@@ -221,7 +211,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--c-teal);
+  background: var(--c-gold);
 }
 .countdown__bar {
   position: absolute;
@@ -229,7 +219,7 @@
   right: 0;
   bottom: 0;
   height: 3px;
-  background: var(--c-main);
+  background: var(--c-ink);
   transform-origin: left;
   transform: scaleX(var(--f, 0));
   transition: transform 0.9s linear;
@@ -247,14 +237,14 @@
   gap: 12px;
   padding: clamp(10px, 1.8vh, 16px) clamp(14px, 1.6vw, 22px);
   border-radius: clamp(14px, 1.6vw, 20px);
-  background: rgba(0, 38, 36, 0.55);
-  border: 1px solid rgba(0, 158, 151, 0.6);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
 }
 .announce__text {
   font-size: clamp(16px, calc(var(--cn, clamp(26px, 3.6vw, 52px)) * 0.55), 28px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.15;
-  color: var(--c-ochre);
+  color: var(--c-gold);
   text-wrap: balance;
 }
 .announce__dot {
@@ -263,14 +253,14 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--c-ochre);
+  background: var(--c-gold);
 }
 .announce__dot::after {
   content: "";
   position: absolute;
   inset: -2px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 185, 106, 0.7);
+  border: 2px solid rgb(233 200 120 / 0.7);
   will-change: transform, opacity;
   animation: pulse 2.4s ease-out infinite;
 }

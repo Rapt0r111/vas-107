@@ -2,6 +2,7 @@
 .program {
   border-radius: clamp(22px, 3vw, 32px);
   background: var(--c-card);
+  border: 1px solid var(--c-line);
   padding: clamp(20px, 3vw, 32px);
 }
 .program__heading {
@@ -10,6 +11,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  color: var(--c-gold);
 }
 .timeline {
   margin: 0;
@@ -31,7 +33,7 @@
   right: 0;
   top: 5px;
   height: 2px;
-  background: var(--c-teal);
+  background: var(--c-line);
   transform-origin: left;
   animation: grow-x 0.6s cubic-bezier(0.3, 0.6, 0.2, 1) calc(var(--s) + var(--d)) backwards;
 }
@@ -42,20 +44,20 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--c-card);
-  border: 2px solid var(--c-teal);
+  background: var(--c-bg);
+  border: 2px solid var(--c-gold);
   transition: transform 0.2s ease;
 }
 .timeline__dot--on {
-  background: var(--c-ochre);
-  border-color: var(--c-ochre);
+  background: #f6e2a8;
+  border-color: #f6e2a8;
 }
 .timeline__dot--on::after {
   content: "";
   position: absolute;
   inset: -2px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 185, 106, 0.7);
+  border: 2px solid rgb(233 200 120 / 0.7);
   will-change: transform, opacity;
   animation: pulse 2.4s ease-out infinite;
 }
@@ -68,8 +70,9 @@
 .timeline__live {
   padding: 2px 8px;
   border-radius: 999px;
-  background: var(--c-ochre);
-  color: var(--c-main);
+  background: var(--c-gold-fill);
+  color: var(--c-ink);
+  font-family: var(--font-display);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -77,7 +80,7 @@
   white-space: nowrap;
 }
 .timeline__dot--done {
-  background: var(--c-teal);
+  background: var(--c-gold);
 }
 .timeline__item--past .timeline__time,
 .timeline__item--past .timeline__title {
@@ -88,19 +91,22 @@
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: var(--c-ochre);
-  font-variant-numeric: tabular-nums;
+  color: var(--c-gold);
+  font-variant-numeric: lining-nums tabular-nums;
   transition: color 0.2s ease;
 }
 .timeline__title {
   margin-top: 6px;
+  font-family: var(--font-text);
   font-size: clamp(17px, 1.5vw, 19px);
-  font-weight: 500;
+  font-size-adjust: var(--xh);
+  color: var(--c-cream);
+  font-weight: 600;
   line-height: 1.3;
   text-wrap: pretty;
 }
 .timeline__title--key {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 @media (hover: hover) {
@@ -108,7 +114,7 @@
     transform: scale(1.35);
   }
   .timeline__item:hover .timeline__time {
-    color: var(--c-white);
+    color: #fff3d0;
   }
 }
 @media (max-width: 1099px) {

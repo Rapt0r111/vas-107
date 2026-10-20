@@ -13,29 +13,31 @@
   animation: intro-out 0.5s ease 1.3s forwards;
 }
 .intro img {
-  height: clamp(96px, 22vh, 200px);
+  height: clamp(110px, 26vh, 240px);
   width: auto;
   animation: intro-in 0.9s var(--ease-out) backwards;
 }
 .intro__years {
   font-size: clamp(20px, 3.4vh, 32px);
   font-weight: 700;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em; /* компенсирует хвостовой интервал, чтобы текст стоял по центру */
+  font-variant-numeric: lining-nums;
   text-transform: uppercase;
-  color: var(--c-ochre);
+  color: var(--c-gold);
   animation: rise 0.8s var(--ease-out) 0.3s backwards;
 }
 .intro__bar {
   width: clamp(120px, 18vw, 200px);
   height: 2px;
-  background: rgba(0, 158, 151, 0.35);
+  background: var(--c-line);
   overflow: hidden;
 }
 .intro__bar::after {
   content: "";
   display: block;
   height: 100%;
-  background: var(--c-ochre);
+  background: var(--c-gold);
   transform-origin: left;
   animation: grow-x 1.2s linear backwards;
 }

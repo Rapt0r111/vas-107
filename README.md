@@ -1,7 +1,7 @@
 # ВАС-107 · Приглашение на 107 годовщину Военной академии связи
 
 Сайт-визитка: обратный отсчёт, дата (с добавлением в календарь), место (с картой), программа торжества.
-Фирменные цвета, шрифты (Tektur, Golos Text) и герб — по брендбуку ВАС.
+Фирменные цвета, золотой стиль по макету академии: шрифты Playfair Display и Cormorant, золотые волны, цветной герб.
 
 **Стек:** Next.js 16 (App Router, Cache Components) · React 19 · TypeScript (strict) · CSS без runtime · `next/font/local` · Vitest, Bun.
 
@@ -25,7 +25,7 @@ src/
   config/         event.ts, program.ts — все тексты, даты и адрес в одном месте
   lib/            calendar (Google, .ics), countdown, format, maps, fonts, css
   styles/         tokens · base · motion · intro · hero · info · program · fit
-  assets/fonts/   woff2-субсеты Tektur и Golos Text (кириллица + латиница)
+  assets/fonts/   woff2-субсеты Playfair Display и Cormorant (кириллица + латиница)
 public/brand/     герб и волновой паттерн (SVG)
 tests/            тесты календаря, таймера и форматирования
 ```

@@ -4,7 +4,7 @@ import Image from "next/image";
 export function Intro() {
   return (
     <div className="intro" aria-hidden="true">
-      <Image src="/brand/vas-logo-white.svg" alt="" width={570} height={707} unoptimized loading="eager" />
+      <Image src="/brand/vas-emblem.webp" alt="" width={600} height={746} unoptimized loading="eager" />
       <div className="intro__years font-display">{"107 лет"}</div>
       <div className="intro__bar" />
     </div>

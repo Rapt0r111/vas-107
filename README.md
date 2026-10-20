@@ -23,7 +23,7 @@ src/
   app/            layout (метаданные, шрифты), page, icon.svg, globals.css
   components/     intro · hero (+Countdown) · info · program · effects · ui
   config/         event.ts, program.ts — все тексты, даты и адрес в одном месте
-  lib/            calendar (Google/Outlook/.ics), countdown, format, maps, fonts, css
+  lib/            calendar (Google, .ics), countdown, format, maps, fonts, css
   styles/         tokens · base · motion · intro · hero · info · program · fit
   assets/fonts/   woff2-субсеты Tektur и Golos Text (кириллица + латиница)
 public/brand/     герб и волновой паттерн (SVG)
@@ -36,7 +36,7 @@ tests/            тесты календаря, таймера и формат�
 
 - **Один экран без прокрутки.** На мониторах (гориз. и верт.) страница вписывается в окно, размеры считаются от высоты (`src/styles/fit.css`). На телефоне и небольших планшетах страница прокручивается, блоки плавно появляются при прокрутке (CSS scroll-driven animations, без JS).
 - **Таймер** — клиентский компонент на `useSyncExternalStore`: один интервал на всех, без расхождений при гидратации.
-- **Календарь:** Google и Outlook — ссылками; Apple и остальные — через `.ics`, встроенный в ссылку (`data:`), с напоминанием за час.
+- **Календарь:** одна кнопка. На iPhone и iPad отдаёт `.ics`, встроенный в ссылку (`data:`), с напоминанием за час; на остальных устройствах открывает Google Календарь.
 - **Производительность:** анимации только на `transform` и `opacity`; шрифты самохостятся и весят около 60 КБ; уважается `prefers-reduced-motion`.
 - **Состояния дня.** До торжества — отсчёт, во время — «идут прямо сейчас» и метка у текущего пункта программы, после 17:00 — «Спасибо, что были с нами»; пройденные пункты затемняются.
 - **Индексация отключена** (`robots: noindex`) — это приглашение для своих. Снимается в `src/app/layout.tsx`.

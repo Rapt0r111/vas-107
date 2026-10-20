@@ -1,7 +1,7 @@
-import { googleCalendarUrl, icsDataUrl, outlookCalendarUrl } from "@/lib/calendar";
+import { googleCalendarUrl, icsDataUrl } from "@/lib/calendar";
 import { rise } from "@/lib/css";
 import { dayAndMonth, yearAndWeekday } from "@/lib/format";
-import { PlusIcon } from "@/components/ui/icons";
+import { CalendarLink } from "./CalendarLink";
 
 export function DateTile() {
   return (
@@ -10,19 +10,7 @@ export function DateTile() {
       <div className="tile__body">
         <div className="tile__date font-display">{dayAndMonth()}</div>
         <div className="tile__year">{yearAndWeekday()}</div>
-        <a className="tile__link stretch" href={googleCalendarUrl()} target="_blank" rel="noopener noreferrer">
-          <PlusIcon />
-          Добавить в календарь
-        </a>
-        <div className="tile__alt">
-          <span>Также:</span>
-          <a className="tile__alt-link" href={icsDataUrl()} download="vas-107.ics">
-            Apple и другие (.ics)
-          </a>
-          <a className="tile__alt-link" href={outlookCalendarUrl()} target="_blank" rel="noopener noreferrer">
-            Outlook
-          </a>
-        </div>
+        <CalendarLink googleUrl={googleCalendarUrl()} icsUrl={icsDataUrl()} />
       </div>
     </div>
   );

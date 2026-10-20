@@ -93,31 +93,6 @@
 .tile--place .tile__link {
   color: var(--c-ochre);
 }
-.tile__alt {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 12px;
-  font-size: 13px;
-  font-weight: 500;
-}
-.tile__alt > span {
-  opacity: 0.75;
-}
-.tile__alt-link {
-  position: relative;
-  z-index: 1;
-  color: var(--c-main);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-}
-.tile__alt-link:hover,
-.tile__alt-link:focus-visible {
-  opacity: 1;
-}
-
 /* Вся плитка кликабельна через растянутую ссылку */
 .tile--interactive {
   transition: transform 0.2s ease;

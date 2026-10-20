@@ -17,19 +17,6 @@ export function googleCalendarUrl(): string {
   return `https://calendar.google.com/calendar/render?${params.join("&")}`;
 }
 
-export function outlookCalendarUrl(): string {
-  const params = [
-    `path=${enc("/calendar/action/compose")}`,
-    "rru=addevent",
-    `startdt=${enc(event.startsAt)}`,
-    `enddt=${enc(event.endsAt)}`,
-    `subject=${enc(event.title)}`,
-    `body=${enc(event.description)}`,
-    `location=${enc(fullAddress)}`,
-  ];
-  return `https://outlook.live.com/calendar/0/deeplink/compose?${params.join("&")}`;
-}
-
 const escapeText = (s: string) => s.replace(/[\;,]/g, (c) => `\\${c}`).replace(/\n/g, "\\n");
 
 /** RFC 5545: строки не длиннее 75 октетов, продолжение начинается с пробела. */

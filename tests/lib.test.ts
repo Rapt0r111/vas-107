@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildIcs, googleCalendarUrl, icsDataUrl, outlookCalendarUrl, toUtcStamp } from "@/lib/calendar";
+import { buildIcs, googleCalendarUrl, icsDataUrl, toUtcStamp } from "@/lib/calendar";
 import { event } from "@/config/event";
 import { getCountdown } from "@/lib/countdown";
 import { dayAndMonth, yearAndWeekday } from "@/lib/format";
@@ -33,9 +33,8 @@ describe("calendar", () => {
     for (const line of ics.split("\r\n")) expect(new TextEncoder().encode(line).length).toBeLessThanOrEqual(75);
     expect(decodeURIComponent(icsDataUrl().split(",")[1])).toBe(ics);
   });
-  it("ссылки Google и Outlook содержат время и место", () => {
+  it("ссылка Google и карта содержат время и место", () => {
     expect(googleCalendarUrl()).toContain("dates=20261106T063000Z/20261106T140000Z");
-    expect(outlookCalendarUrl()).toContain("startdt=2026-11-06T09%3A30%3A00%2B03%3A00");
     expect(decodeURIComponent(yandexMapsUrl())).toContain("Тихорецкий проспект, 3");
   });
 });
